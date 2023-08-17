@@ -12,10 +12,10 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import android.widget.ImageView
 import android.view.View
 import android.widget.Toast
-import android.content.Intent
+import androidx.appcompat.widget.Toolbar
 
 
-class TMapActivity : AppCompatActivity() {
+class PinTMap : AppCompatActivity() {
 
     val API_KEY = "JEK9BypcTk7mELuqYhBxk1XQDzBkAncx38APA3Pv" // 발급받은 API 키
 
@@ -24,25 +24,25 @@ class TMapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_tmap)
+        setContentView(R.layout.pin_tmap)
         tmapView = TMapView(this)
 
-        val container = findViewById<FrameLayout>(R.id.tmapContainer)
+        val container = findViewById<FrameLayout>(R.id.tmappinContainer)
         container.addView(tmapView)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         tmapView?.setSKTMapApiKey(API_KEY)
- 
-        val vectorImageView = findViewById<ImageView>(R.id.vectorImageView)
-        val vectorDrawable = VectorDrawableCompat.create(resources, R.drawable.ui1, null)
-        vectorImageView.setImageDrawable(vectorDrawable)
-
+        addMarkerAtLocation(37.570841, 126.985302)
     }
 
+    private fun addMarkerAtLocation(latitude: Double, longitude: Double) {
+        val tItem = TMapMarkerItem()
+        val tMapPoint = TMapPoint(latitude, longitude)
 
-    fun onImageViewClick(view: View) {
-        val intent = Intent(this, PinTMap::class.java)
-        startActivity(intent)
+        tItem.tMapPoint = tMapPoint
+        tItem.icon = BitmapFactory.decodeResource(resources, R.drawable.marker_icon) // 마커 아이콘 설정
+
+        tmapView?.addMarkerItem("marker1", tItem)
     }
-
-    
 }
