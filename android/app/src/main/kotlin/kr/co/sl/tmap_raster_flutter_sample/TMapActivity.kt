@@ -10,6 +10,9 @@ import android.graphics.BitmapFactory
 import androidx.core.content.ContextCompat
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import android.widget.ImageView
+import android.view.View
+import android.widget.Toast
+
 
 class TMapActivity : AppCompatActivity() {
 
@@ -33,9 +36,18 @@ class TMapActivity : AppCompatActivity() {
         val vectorDrawable = VectorDrawableCompat.create(resources, R.drawable.ui1, null)
         vectorImageView.setImageDrawable(vectorDrawable)
 
+        
+        
+
 
     }
 
+
+    fun onImageViewClick(view: View) {
+        Toast.makeText(this, "버튼이 클릭되었습니다.", Toast.LENGTH_SHORT).show()
+    }
+
+    
     private fun addMarkerAtLocation(latitude: Double, longitude: Double) {
         val tItem = TMapMarkerItem()
         val tMapPoint = TMapPoint(latitude, longitude)
