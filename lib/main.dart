@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tmap_raster_flutter_sample/pages/find.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,12 +15,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tmap application demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        title: 'Tmap application demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blueGrey,
+        ),
+        routes: {
+          '/': (context) => FindPage(),
+          '/find': (context) => FindPage(),
+        });
   }
 }
 
@@ -34,6 +37,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final platform = const MethodChannel("testing.flutter.android");
+  final findplatform = const MethodChannel("com.example.flutter_channel");
 
   Future<void> _showActivity() async {
     try {

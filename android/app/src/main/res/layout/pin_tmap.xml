@@ -32,8 +32,8 @@
 
     <ImageButton
             android:id="@+id/findbutton"
-            android:layout_width="193dp"
-            android:layout_height="58dp"
+            android:layout_width="201dp"
+            android:layout_height="66dp"
             android:background="@drawable/findbutton"
             app:layout_constraintTop_toTopOf="@id/tmappinContainer"
             app:layout_constraintStart_toStartOf="@id/tmappinContainer"
