@@ -44,8 +44,10 @@ class PinTMap : AppCompatActivity() {
         container.addView(tmapView)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-
+        val desiredZoomLevel = 13
+        tmapView?.setZoomLevel(desiredZoomLevel)
         tmapView?.setSKTMapApiKey(API_KEY)
+        //tmapView?.setUserScrollZoomEnable(true); 
         val csvFile = "location.csv"
         readCsvAndAddMarkers(csvFile)
     }
