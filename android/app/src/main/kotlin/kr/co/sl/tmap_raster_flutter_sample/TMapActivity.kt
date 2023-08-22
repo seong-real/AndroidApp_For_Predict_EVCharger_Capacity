@@ -13,6 +13,11 @@ import android.widget.ImageView
 import android.view.View
 import android.widget.Toast
 import android.content.Intent
+import io.flutter.embedding.android.FlutterFragmentActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.dart.DartExecutor
+
+
 
 
 class TMapActivity : AppCompatActivity() {
@@ -36,7 +41,7 @@ class TMapActivity : AppCompatActivity() {
         val vectorDrawable = VectorDrawableCompat.create(resources, R.drawable.ui1, null)
         vectorImageView.setImageDrawable(vectorDrawable)
 
-    }
+        }
 
 
     fun onImageViewClick(view: View) {
@@ -44,5 +49,9 @@ class TMapActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun onImageClickNav(view: View){
+        val intent = Intent(this, NavFlutter::class.java)
+        startActivity(intent)
     
+}
 }

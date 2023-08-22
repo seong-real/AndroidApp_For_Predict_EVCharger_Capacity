@@ -24,6 +24,9 @@ class DriveRouteData {
         RoutePoint(latitude: 37.566368, longitude: 126.985089, name: "T타워");
 
     return RouteRequestData(
-        routeOption: option, destination: dest, guideWithoutPreview: false);
+        source: start,
+        routeOption: option,
+        destination: dest,
+        guideWithoutPreview: false);
   }
 }

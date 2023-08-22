@@ -2,11 +2,30 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tmap_raster_flutter_sample/pages/drive_page.dart';
 import 'package:tmap_raster_flutter_sample/pages/find.dart';
+import 'package:tmap_raster_flutter_sample/pages/root_page.dart';
+import 'package:tmap_raster_flutter_sample/config/config_car.dart';
+import 'package:tmap_raster_flutter_sample/config/drive_route_data.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+final GoRouter _router = GoRouter(routes: [
+  GoRoute(
+      path: '/',
+      builder: (context, state) => const MyHomePage(
+            title: 'Home',
+          ),
+      routes: [
+        GoRoute(path: 'drive', builder: (context, state) => const DrivePage()),
+        GoRoute(path: 'find', builder: (context, state) => const FindPage()),
+        GoRoute(path: 'root', builder: (context, state) => const RootPage())
+      ])
+]);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,15 +33,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Tmap application demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
-        ),
-        routes: {
-          '/': (context) => FindPage(),
-          '/find': (context) => FindPage(),
-        });
+    return MultiProvider(
+        providers: [
+          Provider(create: (context) => ConfigCarModel()),
+          Provider(create: (context) => DriveRouteData())
+        ],
+        child: MaterialApp.router(
+          title: "SKT FLY AI PROJECT",
+          theme: ThemeData(primarySwatch: Colors.blue),
+          debugShowCheckedModeBanner: false,
+          routerConfig: _router,
+        ));
   }
 }
 
@@ -37,7 +58,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final platform = const MethodChannel("testing.flutter.android");
-  final findplatform = const MethodChannel("com.example.flutter_channel");
 
   Future<void> _showActivity() async {
     try {
@@ -61,15 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            color: Colors.white,
-            alignment: Alignment.center,
-            child: const AndroidView(
-              viewType: "androidView",
-              layoutDirection: TextDirection.ltr,
-              creationParamsCodec: StandardMessageCodec(),
-            ),
-          ),
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -121,6 +132,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   child: const Text(
                     "로그인",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.go('/root');
+                  },
+                  style: ButtonStyle(
+                    fixedSize:
+                        MaterialStateProperty.all<Size>(const Size(150, 50)),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.blue), // 버튼의 크기 지정
+                  ),
+                  child: const Text(
+                    "nav",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

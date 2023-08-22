@@ -1,8 +1,5 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import '/models/station_info.dart';
 
-class ApiService {
+/*class ApiService {
   static const String baseUrl =
       "https://webtoon-crawler.nomadcoders.workers.dev";
   static const String today = "today";
@@ -21,4 +18,4 @@ class ApiService {
     }
     throw Error();
   }
-}
+}*/

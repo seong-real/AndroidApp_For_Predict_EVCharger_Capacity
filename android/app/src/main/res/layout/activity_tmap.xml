@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="@id/tmapContainer"
             app:layout_constraintEnd_toEndOf="@id/tmapContainer"
             app:layout_constraintBottom_toBottomOf="@id/tmapContainer"
-            android:onClick="onImageViewClick"
+            android:onClick="onImageClickNav"
             app:layout_constraintVertical_bias="0.004"
             app:layout_constraintHorizontal_bias="0.98"
             />
