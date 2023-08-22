@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tmap_raster_flutter_sample/models/station_info.dart';
 
 class FindPage extends StatefulWidget {
   const FindPage({super.key});
@@ -9,28 +10,104 @@ class FindPage extends StatefulWidget {
 
 class _FindPageState extends State<FindPage> {
   //final Future<List<StationInfo>> stations = ApiService.getStationInfo();
+  List<StationInfo> stationlist = [
+    StationInfo(
+        address: "서울시",
+        name: "보라매전기차",
+        sid: 1,
+        occupancy_20: 0.95,
+        occupancy_40: 0.88,
+        occupancy_60: 0.65,
+        occupancy_120: 0.33),
+    StationInfo(
+        address: "서울아님",
+        name: "보라기전기차",
+        sid: 2,
+        occupancy_20: 0.95,
+        occupancy_40: 0.88,
+        occupancy_60: 0.65,
+        occupancy_120: 0.33),
+    StationInfo(
+        address: "서울시립",
+        name: "보라색전기차",
+        sid: 3,
+        occupancy_20: 0.95,
+        occupancy_40: 0.88,
+        occupancy_60: 0.65,
+        occupancy_120: 0.33),
+    StationInfo(
+        address: "서울시라고",
+        name: "보라전기차",
+        sid: 4,
+        occupancy_20: 0.95,
+        occupancy_40: 0.88,
+        occupancy_60: 0.65,
+        occupancy_120: 0.33),
+    StationInfo(
+        address: "서울시라고",
+        name: "보라전기차",
+        sid: 4,
+        occupancy_20: 0.95,
+        occupancy_40: 0.88,
+        occupancy_60: 0.65,
+        occupancy_120: 0.33),
+    StationInfo(
+        address: "서울시라고",
+        name: "보라전기차",
+        sid: 4,
+        occupancy_20: 0.95,
+        occupancy_40: 0.88,
+        occupancy_60: 0.65,
+        occupancy_120: 0.33),
+  ];
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 2,
-        centerTitle: true,
         backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        title: const Text(
-          "충전소 목록",
-          style: TextStyle(fontSize: 24),
+        appBar: AppBar(
+          toolbarHeight: 70,
+          elevation: 4,
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          title: const Text(
+            "충전소 목록",
+            style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500),
+          ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/');
+        body: ListView.separated(
+          scrollDirection: Axis.vertical,
+          itemCount: 6,
+          padding: const EdgeInsets.all(10),
+          itemBuilder: (context, index) {
+            var station = stationlist[index];
+            return ListTile(
+                title: Text(
+                  station.name,
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.w600),
+                ),
+                subtitle: Row(children: [
+                  Text(
+                    station.address,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                ]));
           },
-        ),
-      ),
+          separatorBuilder: (context, index) {
+            return const Divider(
+              thickness: 3,
+            );
+          },
+        )
 
-      /*body: FutureBuilder(
+        /*body: FutureBuilder(
         future: stations,
         builder: (context, snapshot) {
           return ListView.separated(
@@ -45,6 +122,6 @@ class _FindPageState extends State<FindPage> {
               itemCount: snapshot.data!.length);
         },
       ),*/
-    );
+        );
   }
 }
