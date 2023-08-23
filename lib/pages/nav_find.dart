@@ -4,14 +4,14 @@ import 'dart:math';
 
 import 'package:tmap_raster_flutter_sample/pages/detail_page.dart';
 
-class FindPage extends StatefulWidget {
-  const FindPage({super.key});
+class NavFind extends StatefulWidget {
+  const NavFind({super.key});
 
   @override
-  State<FindPage> createState() => _FindPageState();
+  State<NavFind> createState() => _NavFindState();
 }
 
-class _FindPageState extends State<FindPage> {
+class _NavFindState extends State<NavFind> {
   //final Future<List<StationInfo>> stations = ApiService.getStationInfo();
 
   List<StationInfo> stationlist = [

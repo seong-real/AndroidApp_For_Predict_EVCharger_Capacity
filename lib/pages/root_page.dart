@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/services.dart';
 import 'package:tmap_raster_flutter_sample/config/config_car.dart';
 import 'package:tmap_raster_flutter_sample/config/drive_route_data.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -21,9 +20,9 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   bool isInit = false;
-  final platformnav = const MethodChannel("nav.open.signal");
   String platformVersion = "Unknown";
   String initStatus = "Unknown";
+  InitResult tmapUISDKInitResult = InitResult.notGranted;
 
   @override
   void initState() {
@@ -54,8 +53,8 @@ class _RootPageState extends State<RootPage> {
         pv = await TmapUiSdk().getPlatformVersion();
 
         AuthData authInfo = AuthData(
-          clientApiKey: "JEK9BypcTk7mELuqYhBxk1XQDzBkAncx38APA3Pv",
-        );
+            clientApiKey: "M9z0EpdWwK6BCr2ubprqy91f2CsjBEHLadeunvga",
+            userKey: "");
 
         var result = await TmapUISDKManager().initSDK(authInfo);
 

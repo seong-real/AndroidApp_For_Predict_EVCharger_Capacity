@@ -297,11 +297,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "1.0.8"
-      resolved-ref: f8ba9c4b4ba2f0f613836835db3a31c62b9c3e7a
+      ref: "1.0.9"
+      resolved-ref: cddf92cb0f4d555b40144a96737f5f3d31b4093a
       url: "http://github.com/TmapSDK/TmapUI_FlutterSDK.git"
     source: git
-    version: "1.0.8"
+    version: "1.0.9"
   typed_data:
     dependency: transitive
     description:

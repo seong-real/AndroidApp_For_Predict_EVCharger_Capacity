@@ -23,7 +23,7 @@ final GoRouter _router = GoRouter(routes: [
       routes: [
         GoRoute(path: 'drive', builder: (context, state) => const DrivePage()),
         GoRoute(path: 'find', builder: (context, state) => const FindPage()),
-        GoRoute(path: 'root', builder: (context, state) => const RootPage())
+        GoRoute(path: 'root', builder: (context, state) => const RootPage()),
       ])
 ]);
 

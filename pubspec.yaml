@@ -40,7 +40,7 @@ dependencies:
   tmap_ui_sdk:
     git:
       url: http://github.com/TmapSDK/TmapUI_FlutterSDK.git
-      ref : 1.0.8
+      ref : 1.0.9
 
 
 
