@@ -22,7 +22,7 @@ import io.flutter.embedding.engine.dart.DartExecutor
 
 class TMapActivity : AppCompatActivity() {
 
-    val API_KEY = "XBE10gzf7t9jSCz95BbG99zr6AcVSnPd1RPPIA4U" // 발급받은 API 키
+    val API_KEY = "JEK9BypcTk7mELuqYhBxk1XQDzBkAncx38APA3Pv" // 발급받은 API 키
 
     var tmapView: TMapView? = null
 

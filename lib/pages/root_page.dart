@@ -53,7 +53,7 @@ class _RootPageState extends State<RootPage> {
         pv = await TmapUiSdk().getPlatformVersion();
 
         AuthData authInfo = AuthData(
-            clientApiKey: "M9z0EpdWwK6BCr2ubprqy91f2CsjBEHLadeunvga",
+            clientApiKey: "JEK9BypcTk7mELuqYhBxk1XQDzBkAncx38APA3Pv",
             userKey: "");
 
         var result = await TmapUISDKManager().initSDK(authInfo);

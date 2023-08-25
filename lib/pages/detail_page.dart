@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tmap_raster_flutter_sample/models/station_info.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class DetailScreen extends StatelessWidget {
   final StationInfo stationInfo;
@@ -8,10 +9,6 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime nowTime;
-    nowTime = DateTime.now();
-    String currenttime = '';
-    currenttime = nowTime.toString();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -44,7 +41,7 @@ class DetailScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
+      body: ListView(
         children: [
           const SizedBox(
             height: 20,
@@ -195,6 +192,87 @@ class DetailScreen extends StatelessWidget {
           ),
           const SizedBox(
             height: 20,
+          ),
+          const Row(
+            children: [
+              Padding(padding: EdgeInsets.symmetric(horizontal: 13)),
+              Text(
+                '급속 50kW',
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Divider(
+            indent: 13,
+            endIndent: 13,
+            thickness: 1,
+            color: Colors.grey.shade400,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 13)),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  '플러그 있슈? ',
+                  style: TextStyle(
+                      fontSize: 27,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blue.shade500),
+                ),
+              ),
+              const Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  ' 예상!',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 550.0,
+              enableInfiniteScroll: false,
+              initialPage: 0,
+              viewportFraction: 0.97,
+              enlargeCenterPage: true,
+            ),
+            items: [
+              Container(
+                color: Colors.grey.shade200,
+                child: const Center(child: Text('20분 뒤')),
+              ),
+              Container(
+                color: Colors.grey.shade200,
+                child: const Center(child: Text('40분 뒤')),
+              ),
+              Container(
+                color: Colors.grey.shade200,
+                child: const Center(child: Text('Page 3')),
+              ),
+              Container(
+                color: Colors.grey.shade200,
+                child: const Center(child: Text('Page 4')),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 500,
           ),
         ],
       ),

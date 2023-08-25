@@ -91,8 +91,8 @@ class _FindPageState extends State<FindPage> {
           padding: const EdgeInsets.all(10),
           itemBuilder: (context, index) {
             final random = Random();
-            var randomNumber = random.nextInt(6) + 1;
-            var randomNumber2 = random.nextInt(10) + 1;
+            var randomNumber = random.nextInt(2) + 1;
+            var randomNumber2 = random.nextInt(5) + 1;
             var station = stationlist[index];
             return ListTile(
               title: Column(
