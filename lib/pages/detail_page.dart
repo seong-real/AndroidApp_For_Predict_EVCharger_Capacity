@@ -174,65 +174,40 @@ class DetailScreen extends StatelessWidget {
             color: Colors.grey.shade300,
           ),
           const SizedBox(
-            height: 15,
+            height: 10,
           ),
           const Row(
-            children: [
-              Padding(padding: EdgeInsets.symmetric(horizontal: 13)),
-              Text(
-                '실시간 현황  ',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-              ),
-              Icon(
-                Icons.help,
-                color: Colors.grey,
-                size: 20,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Row(
-            children: [
-              Padding(padding: EdgeInsets.symmetric(horizontal: 13)),
-              Text(
-                '급속 50kW',
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Divider(
-            indent: 13,
-            endIndent: 13,
-            thickness: 1,
-            color: Colors.grey.shade400,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
             children: [
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 13)),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 13)),
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  '플러그 있슈? ',
+                  'Plug ',
                   style: TextStyle(
-                      fontSize: 27,
+                      fontSize: 33,
                       fontWeight: FontWeight.w600,
-                      color: Colors.blue.shade500),
+                      color: Color(0xFFF47726)),
                 ),
               ),
-              const Align(
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  'Issue',
+                  style: TextStyle(
+                      fontSize: 33,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFE51937)),
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  ' 예상!',
+                  '충전소 상태 예측',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -242,11 +217,11 @@ class DetailScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           CarouselSlider(
             options: CarouselOptions(
-              height: 550.0,
+              height: 450.0,
               enableInfiniteScroll: false,
               initialPage: 0,
               viewportFraction: 0.97,
@@ -254,8 +229,10 @@ class DetailScreen extends StatelessWidget {
             ),
             items: [
               Container(
-                color: Colors.grey.shade200,
-                child: const Center(child: Text('20분 뒤')),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('image/frame.png'), fit: BoxFit.cover),
+                ),
               ),
               Container(
                 color: Colors.grey.shade200,
@@ -273,6 +250,47 @@ class DetailScreen extends StatelessWidget {
           ),
           const SizedBox(
             height: 500,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextButton(
+                onPressed: null,
+                style: ButtonStyle(
+                  fixedSize:
+                      MaterialStateProperty.all<Size>(const Size(70, 30)),
+                  backgroundColor: const MaterialStatePropertyAll(
+                      Color.fromARGB(255, 228, 228, 228)),
+                  shape: MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+                child: const Text('경유'),
+              ),
+              const SizedBox(
+                width: 25,
+              ),
+              TextButton(
+                onPressed: null,
+                style: ButtonStyle(
+                  fixedSize:
+                      MaterialStateProperty.all<Size>(const Size(110, 30)),
+                  backgroundColor:
+                      const MaterialStatePropertyAll(Color(0xFF0065ff)),
+                  shape: MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+                child: const Text(
+                  '도착',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
           ),
         ],
       ),

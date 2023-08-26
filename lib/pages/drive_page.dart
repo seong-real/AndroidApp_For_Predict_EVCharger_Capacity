@@ -81,9 +81,7 @@ class _DrivePageState extends State<DrivePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const NavFind()), // SecondPage는 이동하려는 페이지입니다.
+                      MaterialPageRoute(builder: (context) => const NavFind()),
                     );
                   },
                   child: const Text('버튼'),

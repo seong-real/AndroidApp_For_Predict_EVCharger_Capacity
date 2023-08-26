@@ -7,10 +7,10 @@ class StationInfo {
       : address = json['address'],
         name = json['name'],
         sid = json['sid'],
-        occupancy_20 = json['occupancy_20'],
-        occupancy_40 = json['occupancy_40'],
-        occupancy_60 = json['occupancy_60'],
-        occupancy_120 = json['occupancy_120'];
+        occupancy_20 = json['occupancy20'] ?? 0.0,
+        occupancy_40 = json['occupancy40'] ?? 0.0,
+        occupancy_60 = json['occupancy60'] ?? 0.0,
+        occupancy_120 = json['occupancy120'] ?? 0.0;
 
   StationInfo({
     required this.address,

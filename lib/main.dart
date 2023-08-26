@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tmap_raster_flutter_sample/models/station_info.dart';
 import 'package:tmap_raster_flutter_sample/pages/drive_page.dart';
 import 'package:tmap_raster_flutter_sample/pages/find.dart';
 import 'package:tmap_raster_flutter_sample/pages/root_page.dart';
@@ -9,6 +10,8 @@ import 'package:tmap_raster_flutter_sample/config/config_car.dart';
 import 'package:tmap_raster_flutter_sample/config/drive_route_data.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:tmap_raster_flutter_sample/pages/nav_find.dart';
+import 'package:tmap_raster_flutter_sample/services/api_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +27,7 @@ final GoRouter _router = GoRouter(routes: [
         GoRoute(path: 'drive', builder: (context, state) => const DrivePage()),
         GoRoute(path: 'find', builder: (context, state) => const FindPage()),
         GoRoute(path: 'root', builder: (context, state) => const RootPage()),
+        GoRoute(path: 'navfind', builder: (context, state) => const NavFind()),
       ])
 ]);
 
@@ -64,6 +68,17 @@ class _MyHomePageState extends State<MyHomePage> {
       await platform.invokeMethod('showActivity');
     } on PlatformException catch (e) {
       log("Error : $e");
+    }
+  }
+
+  void test() async {
+    try {
+      List<StationInfo> stationInfoList = await ApiService.getStationInfo();
+
+      // 전체 정보를 출력
+      print(stationInfoList);
+    } catch (e) {
+      print('Error occurred: $e');
     }
   }
 
@@ -150,6 +165,42 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   child: const Text(
                     "nav",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.go('/navfind');
+                  },
+                  style: ButtonStyle(
+                    fixedSize:
+                        MaterialStateProperty.all<Size>(const Size(150, 50)),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.blue), // 버튼의 크기 지정
+                  ),
+                  child: const Text(
+                    "navfind",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    test();
+                  },
+                  style: ButtonStyle(
+                    fixedSize:
+                        MaterialStateProperty.all<Size>(const Size(150, 50)),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.blue), // 버튼의 크기 지정
+                  ),
+                  child: const Text(
+                    "api",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

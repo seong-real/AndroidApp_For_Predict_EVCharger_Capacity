@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tmap_raster_flutter_sample/models/station_info.dart';
 import 'dart:math';
 
-import 'package:tmap_raster_flutter_sample/pages/detail_page.dart';
-
 class NavFind extends StatefulWidget {
   const NavFind({super.key});
 
@@ -65,6 +63,9 @@ class _NavFindState extends State<NavFind> {
         occupancy_120: 0.33),
   ];
 
+  List<String> sortOptions = ['추천순', '거리순'];
+  String selectedSortOption = '거리순';
+
   @override
   void initState() {
     super.initState();
@@ -81,99 +82,257 @@ class _NavFindState extends State<NavFind> {
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           title: const Text(
-            "주변 전기차충전소",
+            "도착지 주변 충전소",
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
           ),
         ),
-        body: ListView.separated(
-          scrollDirection: Axis.vertical,
-          itemCount: 6,
-          padding: const EdgeInsets.all(10),
-          itemBuilder: (context, index) {
-            final random = Random();
-            var randomNumber = random.nextInt(6) + 1;
-            var randomNumber2 = random.nextInt(10) + 1;
-            var station = stationlist[index];
-            return ListTile(
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(1),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    station.name,
-                    style: const TextStyle(
-                        fontSize: 26, fontWeight: FontWeight.w600),
+                  const Icon(Icons.sort),
+                  const SizedBox(width: 3),
+                  DropdownButton<String>(
+                    value: selectedSortOption,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedSortOption = newValue!;
+                        // 정렬 변경에 따른 작업 수행
+                      });
+                    },
+                    items: sortOptions
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
-                  RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        const TextSpan(
-                          text: '급속 ',
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                              color: Color.fromARGB(255, 9, 171, 225)),
-                        ),
-                        TextSpan(
-                          text: '$randomNumber 대 가능 ㆍ $randomNumber2시간 전 사용',
-                          style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromARGB(255, 9, 171, 225)),
-                        )
-                      ],
-                    ),
-                  ),
-                  Text(
-                    station.address,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w500),
+                  const SizedBox(
+                    width: 20,
                   ),
                 ],
               ),
-              subtitle: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    width: 270,
-                  ),
-                  SizedBox(
-                    width: 80,
-                    height: 40,
-                    child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  DetailScreen(stationInfo: station),
+            ),
+            const Divider(
+              thickness: 3,
+            ),
+            Expanded(
+              child: ListView.separated(
+                scrollDirection: Axis.vertical,
+                itemCount: stationlist.length,
+                padding: const EdgeInsets.only(left: 10),
+                itemBuilder: (context, index) {
+                  final random = Random();
+                  var randomNumber = random.nextInt(2) + 1;
+                  var randomNumber2 = random.nextInt(10) + 1;
+                  var station = stationlist[index];
+                  if (index < 3) {
+                    return ListTile(
+                        title: Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  station.name,
+                                  style: const TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      const TextSpan(
+                                        text: '급속 ',
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w700,
+                                            color: Color.fromARGB(
+                                                255, 9, 171, 225)),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            '$randomNumber 대 가능 ㆍ $randomNumber2시간 전 사용',
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Color.fromARGB(
+                                                255, 9, 171, 225)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Text(
+                                  station.address,
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextButton(
+                                      onPressed: null,
+                                      style: ButtonStyle(
+                                        fixedSize:
+                                            MaterialStateProperty.all<Size>(
+                                                const Size(70, 30)),
+                                        backgroundColor:
+                                            const MaterialStatePropertyAll(
+                                                Color.fromARGB(
+                                                    255, 228, 228, 228)),
+                                        shape: MaterialStatePropertyAll(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
+                                      ),
+                                      child: const Text('경유'),
+                                    ),
+                                    const SizedBox(
+                                      width: 25,
+                                    ),
+                                    TextButton(
+                                      onPressed: null,
+                                      style: ButtonStyle(
+                                        fixedSize:
+                                            MaterialStateProperty.all<Size>(
+                                                const Size(110, 30)),
+                                        backgroundColor:
+                                            const MaterialStatePropertyAll(
+                                                Color(0xFF0065ff)),
+                                        shape: MaterialStatePropertyAll(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        '도착',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          );
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: const MaterialStatePropertyAll(
-                              Color.fromARGB(255, 228, 228, 228)),
-                          shape: MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                            const SizedBox(
+                              width: 33,
+                            ),
+                            const Image(
+                              image: AssetImage('image/adothelp.png'),
+                              width: 85,
+                              height: 123,
+                            ),
+                          ],
+                        ),
+                        subtitle: null);
+                  } else {
+                    return ListTile(
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            station.name,
+                            style: const TextStyle(
+                                fontSize: 26, fontWeight: FontWeight.w600),
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                const TextSpan(
+                                  text: '급속 ',
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color.fromARGB(255, 9, 171, 225)),
+                                ),
+                                TextSpan(
+                                  text:
+                                      '$randomNumber 대 가능 ㆍ $randomNumber2시간 전 사용',
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Color.fromARGB(255, 9, 171, 225)),
+                                )
+                              ],
                             ),
                           ),
-                        ),
-                        child: const Text(
-                          '자세히',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w500),
-                        )),
-                  ),
-                ],
+                          Text(
+                            station.address,
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextButton(
+                                onPressed: null,
+                                style: ButtonStyle(
+                                  fixedSize: MaterialStateProperty.all<Size>(
+                                      const Size(70, 30)),
+                                  backgroundColor:
+                                      const MaterialStatePropertyAll(
+                                          Color.fromARGB(255, 228, 228, 228)),
+                                  shape: MaterialStatePropertyAll(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ),
+                                child: const Text('경유'),
+                              ),
+                              const SizedBox(
+                                width: 25,
+                              ),
+                              TextButton(
+                                onPressed: null,
+                                style: ButtonStyle(
+                                  fixedSize: MaterialStateProperty.all<Size>(
+                                      const Size(110, 30)),
+                                  backgroundColor:
+                                      const MaterialStatePropertyAll(
+                                          Color(0xFF0065ff)),
+                                  shape: MaterialStatePropertyAll(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ),
+                                child: const Text(
+                                  '도착',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      subtitle: const Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [],
+                      ),
+                    );
+                  }
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider(
+                    thickness: 2,
+                  );
+                },
               ),
-            );
-          },
-          separatorBuilder: (context, index) {
-            return const Divider(
-              thickness: 2,
-            );
-          },
+            ),
+          ],
         )
 
         /*body: FutureBuilder(
