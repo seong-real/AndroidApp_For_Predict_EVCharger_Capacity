@@ -155,24 +155,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 TextButton(
                   onPressed: () {
-                    context.go('/root');
-                  },
-                  style: ButtonStyle(
-                    fixedSize:
-                        MaterialStateProperty.all<Size>(const Size(150, 50)),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.blue), // 버튼의 크기 지정
-                  ),
-                  child: const Text(
-                    "nav",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
                     context.go('/navfind');
                   },
                   style: ButtonStyle(

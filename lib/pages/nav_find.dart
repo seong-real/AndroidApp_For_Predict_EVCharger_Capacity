@@ -76,7 +76,7 @@ class _NavFindState extends State<NavFind> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          toolbarHeight: 70,
+          toolbarHeight: 60,
           elevation: 4,
           centerTitle: true,
           backgroundColor: Colors.white,
@@ -140,7 +140,7 @@ class _NavFindState extends State<NavFind> {
                                 Text(
                                   station.name,
                                   style: const TextStyle(
-                                      fontSize: 26,
+                                      fontSize: 22,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 RichText(
@@ -149,7 +149,7 @@ class _NavFindState extends State<NavFind> {
                                       const TextSpan(
                                         text: '급속 ',
                                         style: TextStyle(
-                                            fontSize: 17,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.w700,
                                             color: Color.fromARGB(
                                                 255, 9, 171, 225)),
@@ -158,7 +158,7 @@ class _NavFindState extends State<NavFind> {
                                         text:
                                             '$randomNumber 대 가능 ㆍ $randomNumber2시간 전 사용',
                                         style: const TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 13,
                                             color: Color.fromARGB(
                                                 255, 9, 171, 225)),
                                       )
@@ -168,7 +168,7 @@ class _NavFindState extends State<NavFind> {
                                 Text(
                                   station.address,
                                   style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 13,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 const SizedBox(
@@ -225,7 +225,7 @@ class _NavFindState extends State<NavFind> {
                               ],
                             ),
                             const SizedBox(
-                              width: 33,
+                              width: 18,
                             ),
                             const Image(
                               image: AssetImage('image/adothelp.png'),

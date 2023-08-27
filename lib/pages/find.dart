@@ -75,7 +75,7 @@ class _FindPageState extends State<FindPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          toolbarHeight: 70,
+          toolbarHeight: 60,
           elevation: 4,
           centerTitle: true,
           backgroundColor: Colors.white,
@@ -133,7 +133,7 @@ class _FindPageState extends State<FindPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    width: 270,
+                    width: 220,
                   ),
                   SizedBox(
                     width: 80,

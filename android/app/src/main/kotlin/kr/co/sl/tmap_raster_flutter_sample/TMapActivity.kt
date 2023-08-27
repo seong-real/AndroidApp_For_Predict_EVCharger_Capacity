@@ -50,8 +50,13 @@ class TMapActivity : AppCompatActivity() {
     }
 
     fun onImageClickNav(view: View){
-        val intent = Intent(this, NavFlutter::class.java)
-        startActivity(intent)
+        startActivity(
+            FlutterFragmentActivity
+                .withNewEngine()
+                .initialRoute("/root")
+                .build(this)
+        )
+        
     
 }
 }

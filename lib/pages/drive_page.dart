@@ -75,16 +75,22 @@ class _DrivePageState extends State<DrivePage> {
                 ),
               ),
               Positioned(
-                top: 650,
-                right: 16,
-                child: ElevatedButton(
-                  onPressed: () {
+                top: 535,
+                right: 13,
+                child: InkWell(
+                  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const NavFind()),
                     );
                   },
-                  child: const Text('버튼'),
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('image/button.png'))),
+                  ),
                 ),
               ),
             ],

@@ -25,7 +25,6 @@ class ApiService {
       for (var datas in jsonData['data']) {
         final instance = StationInfo.fromJson(datas['station']);
         stationinfo.add(instance);
-        print(instance.occupancy_120);
       }
       log('Fetched station info: $stationinfo', name: 'ApiService');
       return stationinfo;

@@ -53,7 +53,7 @@ class _RootPageState extends State<RootPage> {
         pv = await TmapUiSdk().getPlatformVersion();
 
         AuthData authInfo = AuthData(
-            clientApiKey: "JEK9BypcTk7mELuqYhBxk1XQDzBkAncx38APA3Pv",
+            clientApiKey: "t6Vv5GzBao7vCUbL9ZpNh4gmZvTAw2kd5iOF3DPJ",
             userKey: "");
 
         var result = await TmapUISDKManager().initSDK(authInfo);
@@ -114,7 +114,7 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("navi sdk sample"),
+        title: const Text("네비게이션 메뉴"),
         centerTitle: true,
       ),
       body: Center(
