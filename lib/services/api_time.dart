@@ -12,6 +12,7 @@ class TimeApiService {
     String formatDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss").format(time);
     log(formatDate);
     final timeurl = Uri.parse('$baseUrl/station/$sid?time=$formatDate');
+    log('$baseUrl/station/$sid?time=$formatDate');
 
     final response = await http.get(timeurl);
     log('Response status code: ${response.statusCode}', name: 'ApiService');

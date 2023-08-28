@@ -20,7 +20,7 @@ class DetailInfo {
       charAvg4;
   final int sid;
 
-  DetailInfo.fromJson(Map<dynamic, dynamic> json)
+  DetailInfo.fromJson(dynamic json)
       : address = json['station']['address'],
         name = json['station']['name'],
         sid = json['station']['sid'],

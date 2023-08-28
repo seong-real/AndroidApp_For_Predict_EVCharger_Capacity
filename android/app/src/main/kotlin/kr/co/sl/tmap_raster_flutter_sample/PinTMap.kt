@@ -22,7 +22,9 @@ import io.flutter.embedding.engine.FlutterEngine
 import java.io.FileReader
 import java.io.BufferedReader
 import java.io.InputStreamReader
-
+import android.content.Context 
+import java.io.BufferedWriter 
+import java.io.OutputStreamWriter
 
 
 
@@ -77,11 +79,28 @@ class PinTMap : AppCompatActivity() {
 
         tmapView?.addMarkerItem("marker_${latitude}_${longitude}", tItem)
     }
+    private fun clearAndAddLocationToCsv(csvFileName: String, latitude: Double, longitude: Double) {
+        // Clear the existing contents of the CSV file
+        val outputStream = openFileOutput(csvFileName, Context.MODE_PRIVATE)
+        outputStream.close()
+    
+        // Add the new data to the CSV file
+        val appendStream = openFileOutput(csvFileName, Context.MODE_APPEND)
+        val writer = BufferedWriter(OutputStreamWriter(appendStream))
+    
+        // CSV 형식에 맞게 데이터 추가
+        val csvData = "$longitude,$latitude\n"
+        writer.write(csvData)
+    
+        writer.close()
+    }
+
     fun onClickFind(view: View) {
         tmapView?.let { mapView ->
             val tpoint = mapView.getCenterPoint()
             val now_lat = tpoint?.getLatitude()
             val now_alt = tpoint?.getLongitude()
+            clearAndAddLocationToCsv("loc.csv", now_lat ?: 0.0, now_alt ?: 0.0)
         }
 
 
