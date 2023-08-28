@@ -1,18 +1,24 @@
 class DestStationInfo {
   final String address, name;
-  final double occupancy_20, occupancy_40, occupancy_60, occupancy_120;
+  final double occupancy_20,
+      occupancy_40,
+      occupancy_60,
+      occupancy_120,
+      distance;
   final int sid;
 
   DestStationInfo.fromJson(Map<dynamic, dynamic> json)
-      : address = json['address'],
-        name = json['name'],
-        sid = json['sid'],
-        occupancy_20 = json['occupancy20'] ?? 0.0,
-        occupancy_40 = json['occupancy40'] ?? 0.0,
-        occupancy_60 = json['occupancy60'] ?? 0.0,
-        occupancy_120 = json['occupancy120'] ?? 0.0;
+      : address = json['station']['address'] ?? '오류',
+        name = json['station']['name'] ?? '오류',
+        sid = json['station']['sid'] ?? 0,
+        occupancy_20 = json['occupancy20_0'] ?? 0.0,
+        occupancy_40 = json['occupancy40_0'] ?? 0.0,
+        occupancy_60 = json['occupancy60_0'] ?? 0.0,
+        occupancy_120 = json['occupancy120_0'] ?? 0.0,
+        distance = json['distance'] ?? 0.0;
 
   DestStationInfo({
+    required this.distance,
     required this.address,
     required this.name,
     required this.sid,

@@ -59,6 +59,7 @@
             android:name="kr.co.sl.tmap_raster_flutter_sample.TMapActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            
 
         <activity
             android:name="kr.co.sl.tmap_raster_flutter_sample.PinTMap"

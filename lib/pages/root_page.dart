@@ -97,25 +97,15 @@ class _RootPageState extends State<RootPage> {
     return result;
   }
 
-  Future<bool?> setTruckConfig() async {
-    ConfigCarModel model = context.read<ConfigCarModel>();
-
-    bool? result = await TmapUISDKManager().setConfigSDK(model.truck);
-
-    Fluttertoast.showToast(
-        msg: result == true
-            ? "set truck option success"
-            : "set truck option fail");
-
-    return result;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("네비게이션 메뉴"),
         centerTitle: true,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 2,
       ),
       body: Center(
           child: Column(
@@ -129,7 +119,6 @@ class _RootPageState extends State<RootPage> {
           ),
           TextButton(onPressed: initTmap, child: const Text("초기화")),
           TextButton(onPressed: setCarConfig, child: const Text("차량 설정")),
-          TextButton(onPressed: setTruckConfig, child: const Text("트럭 설정")),
           TextButton(
               onPressed: () {
                 DriveRouteData.isSafeDriving = false;

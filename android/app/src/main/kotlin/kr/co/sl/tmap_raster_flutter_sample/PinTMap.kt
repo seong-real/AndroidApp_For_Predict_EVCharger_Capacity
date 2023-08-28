@@ -26,12 +26,13 @@ import java.io.InputStreamReader
 
 
 
+
 class PinTMap : AppCompatActivity() {
 
     val API_KEY = "JEK9BypcTk7mELuqYhBxk1XQDzBkAncx38APA3Pv" // 발급받은 API 키
 
     var tmapView: TMapView? = null
-    
+    private val CHANNEL = "service"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,8 +82,6 @@ class PinTMap : AppCompatActivity() {
             val tpoint = mapView.getCenterPoint()
             val now_lat = tpoint?.getLatitude()
             val now_alt = tpoint?.getLongitude()
-            println("$now_lat")
-            println("$now_alt")
         }
 
 
