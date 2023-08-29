@@ -133,7 +133,7 @@ class DetailScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 const Row(
                   children: [
@@ -149,6 +149,27 @@ class DetailScreen extends StatelessWidget {
                       '24시간영업',
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 13)),
+                    const Icon(
+                      Icons.ev_station,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      '지난 4시간 동안 사용된 평균 충전기 수 : ${snapshot.data?.charAvg4}/${snapshot.data?.fast}',
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w400),
                     )
                   ],
                 ),
@@ -235,7 +256,7 @@ class DetailScreen extends StatelessWidget {
                 ),
                 CarouselSlider(
                   options: CarouselOptions(
-                    height: 500.0,
+                    height: 380.0,
                     enableInfiniteScroll: false,
                     initialPage: 0,
                     viewportFraction: 0.97,
@@ -257,7 +278,7 @@ class DetailScreen extends StatelessWidget {
                           left: 20,
                           child: Container(
                             width: 350,
-                            height: 290,
+                            height: 230,
                             decoration: ShapeDecoration(
                               color: const Color(0xFFF7F7F7),
                               shape: RoundedRectangleBorder(
@@ -282,7 +303,7 @@ class DetailScreen extends StatelessWidget {
                                     height: 10,
                                   ),
                                   Text(
-                                    '${stationInfo.name}의',
+                                    '${stationInfo.name}의 20분 뒤 상태는',
                                     style: const TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500),
@@ -293,27 +314,50 @@ class DetailScreen extends StatelessWidget {
                                       style: DefaultTextStyle.of(context)
                                           .style
                                           .copyWith(
-                                            fontSize: 15, //
+                                            fontSize: 18, //
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             decoration: TextDecoration.none,
-                                            letterSpacing: -1.0,
-                                            wordSpacing: -7.0,
                                           ),
-                                      children: const <TextSpan>[
-                                        TextSpan(
-                                          text: '20분 뒤 상태는 ',
-                                        ),
-                                        TextSpan(
-                                          text: '여유',
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.blue),
-                                        ),
-                                        TextSpan(text: '일 것이라 예측됩니다.')
+                                      children: <TextSpan>[
+                                        if (stationInfo.occupancy_20 == 0)
+                                          const TextSpan(
+                                            text: '여유',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 87, 195, 90)),
+                                          ),
+                                        if (stationInfo.occupancy_20 == 1)
+                                          const TextSpan(
+                                            text: '보통',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 243, 224, 56)),
+                                          ),
+                                        if (stationInfo.occupancy_20 == 2)
+                                          const TextSpan(
+                                            text: '혼잡',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.red),
+                                          ),
+                                        const TextSpan(text: ' 일 것이라 예측됩니다.')
                                       ],
                                     ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    '지난 한 달간 이 시간 사용된',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                   const SizedBox(
                                     height: 5,
@@ -323,7 +367,7 @@ class DetailScreen extends StatelessWidget {
                                       style: DefaultTextStyle.of(context)
                                           .style
                                           .copyWith(
-                                            fontSize: 15, //
+                                            fontSize: 18, //
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             decoration: TextDecoration.none,
@@ -332,16 +376,17 @@ class DetailScreen extends StatelessWidget {
                                           ),
                                       children: <TextSpan>[
                                         const TextSpan(
-                                          text: '이전 4시간동안 사용된 평균 충전기 수는',
+                                          text: '평균 충전기 수는',
                                         ),
                                         TextSpan(
-                                          text: '${snapshot.data?.charAvg20}',
+                                          text:
+                                              ' ${snapshot.data?.charAvg20} /  ${snapshot.data?.fast} ',
                                           style: const TextStyle(
                                               fontSize: 25,
                                               fontWeight: FontWeight.w600,
-                                              color: Colors.blue),
+                                              color: Colors.black),
                                         ),
-                                        const TextSpan(text: '대이고')
+                                        const TextSpan(text: '대입니다.')
                                       ],
                                     ),
                                   ),
@@ -352,34 +397,475 @@ class DetailScreen extends StatelessWidget {
                         ),
                         const Positioned(
                           bottom: 5,
-                          right: 10,
+                          right: 20,
                           child: Image(
-                            image: AssetImage('image/adot.png'),
+                            image: AssetImage('image/adothand.png'),
                             width: 100,
                             height: 160,
                           ),
                         ),
                         const Positioned(
                             bottom: 5,
-                            left: 20,
+                            left: 10,
                             child: Image(
-                              image: AssetImage('image/station.png'),
-                              width: 230,
-                              height: 100,
+                              image: AssetImage('image/charger.png'),
+                              width: 250,
+                              height: 110,
                             ))
                       ],
                     ),
-                    Container(
-                      color: Colors.grey.shade200,
-                      child: const Center(child: Text('40분 뒤')),
+                    Stack(
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('image/frame.png'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        Positioned(
+                          top: 20,
+                          right: 20,
+                          left: 20,
+                          child: Container(
+                            width: 350,
+                            height: 230,
+                            decoration: ShapeDecoration(
+                              color: const Color(0xFFF7F7F7),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(13),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  const Text(
+                                    '40분 뒤',
+                                    style: TextStyle(
+                                        fontSize: 35,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    '${stationInfo.name}의 40분 뒤 상태는',
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  RichText(
+                                    text: TextSpan(
+                                      style: DefaultTextStyle.of(context)
+                                          .style
+                                          .copyWith(
+                                            fontSize: 18, //
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                      children: <TextSpan>[
+                                        if (stationInfo.occupancy_40 == 0)
+                                          const TextSpan(
+                                            text: '여유',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 87, 195, 90)),
+                                          ),
+                                        if (stationInfo.occupancy_40 == 1)
+                                          const TextSpan(
+                                            text: '보통',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 243, 224, 56)),
+                                          ),
+                                        if (stationInfo.occupancy_40 == 2)
+                                          const TextSpan(
+                                            text: '혼잡',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.red),
+                                          ),
+                                        const TextSpan(text: ' 일 것이라 예측됩니다.')
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    '지난 한 달간 이 시간 사용된',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      style: DefaultTextStyle.of(context)
+                                          .style
+                                          .copyWith(
+                                            fontSize: 18, //
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            decoration: TextDecoration.none,
+                                            letterSpacing: -1.0,
+                                            wordSpacing: -7.0,
+                                          ),
+                                      children: <TextSpan>[
+                                        const TextSpan(
+                                          text: '평균 충전기 수는',
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              ' ${snapshot.data?.charAvg40} /  ${snapshot.data?.fast} ',
+                                          style: const TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black),
+                                        ),
+                                        const TextSpan(text: '대입니다.')
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Positioned(
+                          bottom: 5,
+                          right: 20,
+                          child: Image(
+                            image: AssetImage('image/adothand.png'),
+                            width: 100,
+                            height: 160,
+                          ),
+                        ),
+                        const Positioned(
+                            bottom: 5,
+                            left: 10,
+                            child: Image(
+                              image: AssetImage('image/charger.png'),
+                              width: 250,
+                              height: 110,
+                            ))
+                      ],
                     ),
-                    Container(
-                      color: Colors.grey.shade200,
-                      child: const Center(child: Text('Page 3')),
+                    Stack(
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('image/frame.png'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        Positioned(
+                          top: 20,
+                          right: 20,
+                          left: 20,
+                          child: Container(
+                            width: 350,
+                            height: 230,
+                            decoration: ShapeDecoration(
+                              color: const Color(0xFFF7F7F7),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(13),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  const Text(
+                                    '60분 뒤',
+                                    style: TextStyle(
+                                        fontSize: 35,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    '${stationInfo.name}의 60분 뒤 상태는',
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  RichText(
+                                    text: TextSpan(
+                                      style: DefaultTextStyle.of(context)
+                                          .style
+                                          .copyWith(
+                                            fontSize: 18, //
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                      children: <TextSpan>[
+                                        if (stationInfo.occupancy_60 == 0)
+                                          const TextSpan(
+                                            text: '여유',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 87, 195, 90)),
+                                          ),
+                                        if (stationInfo.occupancy_20 == 1)
+                                          const TextSpan(
+                                            text: '보통',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 243, 224, 56)),
+                                          ),
+                                        if (stationInfo.occupancy_20 == 2)
+                                          const TextSpan(
+                                            text: '혼잡',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.red),
+                                          ),
+                                        const TextSpan(text: ' 일 것이라 예측됩니다.')
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    '지난 한 달간 이 시간 사용된',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      style: DefaultTextStyle.of(context)
+                                          .style
+                                          .copyWith(
+                                            fontSize: 18, //
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            decoration: TextDecoration.none,
+                                            letterSpacing: -1.0,
+                                            wordSpacing: -7.0,
+                                          ),
+                                      children: <TextSpan>[
+                                        const TextSpan(
+                                          text: '평균 충전기 수는',
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              ' ${snapshot.data?.charAvg60} /  ${snapshot.data?.fast} ',
+                                          style: const TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black),
+                                        ),
+                                        const TextSpan(text: '대입니다.')
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Positioned(
+                          bottom: 5,
+                          right: 20,
+                          child: Image(
+                            image: AssetImage('image/adothand.png'),
+                            width: 100,
+                            height: 160,
+                          ),
+                        ),
+                        const Positioned(
+                            bottom: 5,
+                            left: 10,
+                            child: Image(
+                              image: AssetImage('image/charger.png'),
+                              width: 250,
+                              height: 110,
+                            ))
+                      ],
                     ),
-                    Container(
-                      color: Colors.grey.shade200,
-                      child: const Center(child: Text('Page 4')),
+                    Stack(
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('image/frame.png'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        Positioned(
+                          top: 20,
+                          right: 20,
+                          left: 20,
+                          child: Container(
+                            width: 350,
+                            height: 230,
+                            decoration: ShapeDecoration(
+                              color: const Color(0xFFF7F7F7),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(13),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  const Text(
+                                    '120분 뒤',
+                                    style: TextStyle(
+                                        fontSize: 35,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    '${stationInfo.name}의 120분 뒤 상태는',
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  RichText(
+                                    text: TextSpan(
+                                      style: DefaultTextStyle.of(context)
+                                          .style
+                                          .copyWith(
+                                            fontSize: 18, //
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                      children: <TextSpan>[
+                                        if (stationInfo.occupancy_120 == 0)
+                                          const TextSpan(
+                                            text: '여유',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 87, 195, 90)),
+                                          ),
+                                        if (stationInfo.occupancy_120 == 1)
+                                          const TextSpan(
+                                            text: '보통',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 243, 224, 56)),
+                                          ),
+                                        if (stationInfo.occupancy_120 == 2)
+                                          const TextSpan(
+                                            text: '혼잡',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.red),
+                                          ),
+                                        const TextSpan(text: ' 일 것이라 예측됩니다.')
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    '지난 한 달간 이 시간 사용된',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      style: DefaultTextStyle.of(context)
+                                          .style
+                                          .copyWith(
+                                            fontSize: 18, //
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            decoration: TextDecoration.none,
+                                            letterSpacing: -1.0,
+                                            wordSpacing: -7.0,
+                                          ),
+                                      children: <TextSpan>[
+                                        const TextSpan(
+                                          text: '평균 충전기 수는',
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              ' ${snapshot.data?.charAvg120} /  ${snapshot.data?.fast} ',
+                                          style: const TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black),
+                                        ),
+                                        const TextSpan(text: '대입니다.')
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Positioned(
+                          bottom: 5,
+                          right: 20,
+                          child: Image(
+                            image: AssetImage('image/adothand.png'),
+                            width: 100,
+                            height: 160,
+                          ),
+                        ),
+                        const Positioned(
+                            bottom: 5,
+                            left: 10,
+                            child: Image(
+                              image: AssetImage('image/charger.png'),
+                              width: 250,
+                              height: 110,
+                            ))
+                      ],
                     ),
                   ],
                 ),

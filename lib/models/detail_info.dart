@@ -1,7 +1,7 @@
 class DetailInfo {
   final String address, name;
-  final double occupancy0,
-      occupancy20_0,
+  final int occupancy0, fast;
+  final double occupancy20_0,
       occupancy20_1,
       occupancy20_2,
       occupancy40_0,
@@ -24,7 +24,8 @@ class DetailInfo {
       : address = json['station']['address'],
         name = json['station']['name'],
         sid = json['station']['sid'],
-        occupancy0 = json['status']['occupancy0'] ?? 0.0,
+        fast = json['station']['fast'],
+        occupancy0 = json['status']['occupancy0'] ?? 0,
         occupancy20_0 = json['status']['occupancy20_0'] ?? 0.0,
         occupancy20_1 = json['status']['occupancy20_1'] ?? 0.0,
         occupancy20_2 = json['status']['occupancy20_2'] ?? 0.0,
@@ -44,6 +45,7 @@ class DetailInfo {
         charAvg4 = json['charAvg4'] ?? 0.0;
 
   DetailInfo({
+    required this.fast,
     required this.address,
     required this.name,
     required this.sid,

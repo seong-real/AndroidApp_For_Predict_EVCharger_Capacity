@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:tmap_raster_flutter_sample/models/station_info.dart';
-import 'dart:math';
 
 import 'package:tmap_raster_flutter_sample/pages/detail_page.dart';
 import 'package:tmap_raster_flutter_sample/services/api_service.dart';
@@ -45,10 +44,8 @@ class _FindPageState extends State<FindPage> {
                 itemCount: snapshot.data!.length,
                 padding: const EdgeInsets.all(10),
                 itemBuilder: (context, index) {
-                  final random = Random();
                   var station = snapshot.data![index];
-                  var randomNumber = random.nextInt(2) + 1;
-                  var randomNumber2 = random.nextInt(5) + 1;
+
                   return ListTile(
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,6 +54,9 @@ class _FindPageState extends State<FindPage> {
                           station.name,
                           style: const TextStyle(
                               fontSize: 23, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          height: 5,
                         ),
                         RichText(
                           text: TextSpan(
@@ -69,8 +69,7 @@ class _FindPageState extends State<FindPage> {
                                     color: Color.fromARGB(255, 9, 171, 225)),
                               ),
                               TextSpan(
-                                text:
-                                    '$randomNumber 대 가능 ㆍ $randomNumber2시간 전 사용',
+                                text: '${station.fast} 대 가능',
                                 style: const TextStyle(
                                     fontSize: 13,
                                     color: Color.fromARGB(255, 9, 171, 225)),
@@ -88,9 +87,9 @@ class _FindPageState extends State<FindPage> {
                         Text(
                           '${station.distance.toStringAsFixed(2)}Km',
                           style: TextStyle(
-                              fontSize: 13,
+                              fontSize: 15,
                               fontWeight: FontWeight.w500,
-                              color: Colors.grey.shade600),
+                              color: Colors.grey.shade800),
                         )
                       ],
                     ),
@@ -146,23 +145,6 @@ class _FindPageState extends State<FindPage> {
               );
             }
           },
-        )
-
-        /*body: FutureBuilder(
-        future: stations,
-        builder: (context, snapshot) {
-          return ListView.separated(
-              itemBuilder: (context, index) {
-                var station = snapshot.data![index];
-                return Text(station.title);
-              },
-              separatorBuilder: (context, index) => const SizedBox(
-                    height: 30,
-                  ),
-              scrollDirection: Axis.vertical,
-              itemCount: snapshot.data!.length);
-        },
-      ),*/
-        );
+        ));
   }
 }

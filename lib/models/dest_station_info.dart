@@ -5,12 +5,13 @@ class DestStationInfo {
       occupancy_60,
       occupancy_120,
       distance;
-  final int sid;
+  final int sid, fast;
 
   DestStationInfo.fromJson(Map<dynamic, dynamic> json)
       : address = json['station']['address'] ?? '오류',
         name = json['station']['name'] ?? '오류',
         sid = json['station']['sid'] ?? 0,
+        fast = json['station']['fast'],
         occupancy_20 = json['occupancy20_0'] ?? 0.0,
         occupancy_40 = json['occupancy40_0'] ?? 0.0,
         occupancy_60 = json['occupancy60_0'] ?? 0.0,
@@ -18,6 +19,7 @@ class DestStationInfo {
         distance = json['distance'] ?? 0.0;
 
   DestStationInfo({
+    required this.fast,
     required this.distance,
     required this.address,
     required this.name,

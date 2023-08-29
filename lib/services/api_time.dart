@@ -21,7 +21,7 @@ class TimeApiService {
       final jsonData = jsonDecode(decodedBody);
       log('result: $jsonData');
 
-      final stationinfo = DetailInfo.fromJson(jsonData['data']);
+      final stationinfo = DetailInfo.fromJson(jsonData['data'][0]);
 
       log('Fetched station info: $stationinfo', name: 'ApiService');
       return stationinfo;

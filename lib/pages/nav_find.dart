@@ -114,6 +114,9 @@ class _NavFindState extends State<NavFind> {
                                             fontSize: 23,
                                             fontWeight: FontWeight.w600),
                                       ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
                                       RichText(
                                         text: TextSpan(
                                           children: <TextSpan>[
@@ -126,8 +129,7 @@ class _NavFindState extends State<NavFind> {
                                                       255, 9, 171, 225)),
                                             ),
                                             TextSpan(
-                                              text:
-                                                  '$randomNumber 대 가능 ㆍ $randomNumber2시간 전 사용',
+                                              text: '${deststation.fast} 대 가능',
                                               style: const TextStyle(
                                                   fontSize: 13,
                                                   color: Color.fromARGB(
@@ -146,7 +148,7 @@ class _NavFindState extends State<NavFind> {
                                       Text(
                                         '${deststation.distance.toStringAsFixed(2)}Km',
                                         style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.grey.shade600),
                                       ),
@@ -229,6 +231,9 @@ class _NavFindState extends State<NavFind> {
                                       fontSize: 23,
                                       fontWeight: FontWeight.w600),
                                 ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
                                 RichText(
                                   text: TextSpan(
                                     children: <TextSpan>[
@@ -241,8 +246,7 @@ class _NavFindState extends State<NavFind> {
                                                 255, 9, 171, 225)),
                                       ),
                                       TextSpan(
-                                        text:
-                                            '$randomNumber 대 가능 ㆍ $randomNumber2시간 전 사용',
+                                        text: '${deststation.fast} 대 가능',
                                         style: const TextStyle(
                                             fontSize: 13,
                                             color: Color.fromARGB(
@@ -261,7 +265,7 @@ class _NavFindState extends State<NavFind> {
                                 Text(
                                   '${deststation.distance.toStringAsFixed(2)}Km',
                                   style: TextStyle(
-                                      fontSize: 13,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.grey.shade600),
                                 ),
