@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tmap_raster_flutter_sample/models/station_info.dart';
 import 'package:tmap_raster_flutter_sample/pages/drive_page.dart';
 import 'package:tmap_raster_flutter_sample/pages/find.dart';
 import 'package:tmap_raster_flutter_sample/pages/root_page.dart';
@@ -11,7 +10,6 @@ import 'package:tmap_raster_flutter_sample/config/drive_route_data.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tmap_raster_flutter_sample/pages/nav_find.dart';
-import 'package:tmap_raster_flutter_sample/services/api_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -70,19 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void test() async {
-    try {
-      List<StationInfo> stationInfoList = await ApiService.getStationInfo();
-
-      // 전체 정보를 출력
-      print(stationInfoList);
-    } catch (e) {
-      print('Error occurred: $e');
-    }
-  }
-
   TextEditingController? _idTextController;
   TextEditingController? _pwTextController;
+  final double _offset = 50.0;
+
   @override
   void initState() {
     super.initState();
@@ -93,105 +82,71 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Column(children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Image.asset(
-                  'image/logo.png',
-                  width: 300,
-                  height: 300,
-                ),
-                SizedBox(
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: _offset),
+                child: Column(children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Image.asset(
+                    'image/logo.png',
+                    width: 200,
+                    height: 200,
+                  ),
+                  SizedBox(
+                      width: 300,
+                      child: TextField(
+                        controller: _idTextController,
+                        maxLines: 1,
+                        decoration: const InputDecoration(
+                          labelText: '아이디',
+                          border: OutlineInputBorder(),
+                        ),
+                      )),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                      width: 300,
+                      child: TextField(
+                        controller: _pwTextController,
+                        maxLines: 1,
+                        decoration: const InputDecoration(
+                          labelText: '비밀번호',
+                          border: OutlineInputBorder(),
+                        ),
+                      )),
+                  const SizedBox(
+                    height: 20,
                     width: 300,
-                    child: TextField(
-                      controller: _idTextController,
-                      maxLines: 1,
-                      decoration: const InputDecoration(
-                        labelText: '아이디',
-                        border: OutlineInputBorder(),
-                      ),
-                    )),
-                const SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                    width: 300,
-                    child: TextField(
-                      controller: _pwTextController,
-                      maxLines: 1,
-                      decoration: const InputDecoration(
-                        labelText: '비밀번호',
-                        border: OutlineInputBorder(),
-                      ),
-                    )),
-                const SizedBox(
-                  height: 20,
-                  width: 300,
-                ),
-                TextButton(
-                  onPressed: () {
-                    _showActivity();
-                  },
-                  style: ButtonStyle(
-                    fixedSize:
-                        MaterialStateProperty.all<Size>(const Size(150, 50)),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.blue), // 버튼의 크기 지정
                   ),
-                  child: const Text(
-                    "로그인",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
+                  TextButton(
+                    onPressed: () {
+                      _showActivity();
+                    },
+                    style: ButtonStyle(
+                      fixedSize:
+                          MaterialStateProperty.all<Size>(const Size(150, 50)),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.blue), // 버튼의 크기 지정
+                    ),
+                    child: const Text(
+                      "로그인",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    context.go('/navfind');
-                  },
-                  style: ButtonStyle(
-                    fixedSize:
-                        MaterialStateProperty.all<Size>(const Size(150, 50)),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.blue), // 버튼의 크기 지정
-                  ),
-                  child: const Text(
-                    "navfind",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    test();
-                  },
-                  style: ButtonStyle(
-                    fixedSize:
-                        MaterialStateProperty.all<Size>(const Size(150, 50)),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.blue), // 버튼의 크기 지정
-                  ),
-                  child: const Text(
-                    "api",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ]),
+                ]),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

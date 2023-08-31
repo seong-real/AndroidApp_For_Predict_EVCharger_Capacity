@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:tmap_raster_flutter_sample/models/dest_station_info.dart';
 import 'package:tmap_raster_flutter_sample/services/dest_api_service.dart';
 
@@ -15,7 +14,7 @@ class _NavFindState extends State<NavFind> {
       DestApiService.getStationInfo();
 
   List<String> sortOptions = ['추천순', '거리순', '여유순'];
-  String selectedSortOption = '추천순';
+  String selectedSortOption = '거리순';
 
   @override
   void initState() {
@@ -95,10 +94,7 @@ class _NavFindState extends State<NavFind> {
                       itemCount: snapshot.data!.length,
                       padding: const EdgeInsets.only(left: 10),
                       itemBuilder: (context, index) {
-                        final random = Random();
                         var deststation = snapshot.data![index];
-                        var randomNumber = random.nextInt(2) + 1;
-                        var randomNumber2 = random.nextInt(10) + 1;
 
                         if ((index < 3) & (selectedSortOption == '추천순')) {
                           return ListTile(
@@ -111,32 +107,65 @@ class _NavFindState extends State<NavFind> {
                                       Text(
                                         deststation.name,
                                         style: const TextStyle(
-                                            fontSize: 23,
+                                            fontSize: 19,
                                             fontWeight: FontWeight.w600),
                                       ),
                                       const SizedBox(
                                         height: 5,
                                       ),
-                                      RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            const TextSpan(
-                                              text: '급속 ',
+                                      if (deststation.occupancy0 == 0)
+                                        const Row(
+                                          children: [
+                                            Icon(
+                                              Icons.circle,
+                                              color: Colors.green,
+                                              size: 20,
+                                            ),
+                                            Text(
+                                              '여유',
                                               style: TextStyle(
                                                   fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color.fromARGB(
-                                                      255, 9, 171, 225)),
-                                            ),
-                                            TextSpan(
-                                              text: '${deststation.fast} 대 가능',
-                                              style: const TextStyle(
-                                                  fontSize: 13,
-                                                  color: Color.fromARGB(
-                                                      255, 9, 171, 225)),
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.green),
                                             )
                                           ],
                                         ),
+                                      if (deststation.occupancy0 == 1)
+                                        const Row(
+                                          children: [
+                                            Icon(
+                                              Icons.circle,
+                                              color: Colors.yellow,
+                                              size: 20,
+                                            ),
+                                            Text(
+                                              '보통',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.yellow),
+                                            )
+                                          ],
+                                        ),
+                                      if (deststation.occupancy0 == 2)
+                                        const Row(
+                                          children: [
+                                            Icon(
+                                              Icons.circle,
+                                              color: Colors.red,
+                                              size: 20,
+                                            ),
+                                            Text(
+                                              '혼잡',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.red),
+                                            )
+                                          ],
+                                        ),
+                                      const SizedBox(
+                                        height: 5,
                                       ),
                                       Text(
                                         deststation.address,
@@ -210,7 +239,7 @@ class _NavFindState extends State<NavFind> {
                                     ],
                                   ),
                                   const SizedBox(
-                                    width: 18,
+                                    width: 10,
                                   ),
                                   const Image(
                                     image: AssetImage('image/adothelp.png'),
@@ -228,32 +257,65 @@ class _NavFindState extends State<NavFind> {
                                 Text(
                                   deststation.name,
                                   style: const TextStyle(
-                                      fontSize: 23,
+                                      fontSize: 19,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                RichText(
-                                  text: TextSpan(
-                                    children: <TextSpan>[
-                                      const TextSpan(
-                                        text: '급속 ',
+                                if (deststation.occupancy0 == 0)
+                                  const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.circle,
+                                        color: Colors.green,
+                                        size: 20,
+                                      ),
+                                      Text(
+                                        '여유',
                                         style: TextStyle(
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                            color: Color.fromARGB(
-                                                255, 9, 171, 225)),
-                                      ),
-                                      TextSpan(
-                                        text: '${deststation.fast} 대 가능',
-                                        style: const TextStyle(
-                                            fontSize: 13,
-                                            color: Color.fromARGB(
-                                                255, 9, 171, 225)),
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.green),
                                       )
                                     ],
                                   ),
+                                if (deststation.occupancy0 == 1)
+                                  const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.circle,
+                                        color: Colors.yellow,
+                                        size: 20,
+                                      ),
+                                      Text(
+                                        '보통',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.yellow),
+                                      )
+                                    ],
+                                  ),
+                                if (deststation.occupancy0 == 2)
+                                  const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.circle,
+                                        color: Colors.red,
+                                        size: 20,
+                                      ),
+                                      Text(
+                                        '혼잡',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.red),
+                                      )
+                                    ],
+                                  ),
+                                const SizedBox(
+                                  height: 5,
                                 ),
                                 Text(
                                   deststation.address,

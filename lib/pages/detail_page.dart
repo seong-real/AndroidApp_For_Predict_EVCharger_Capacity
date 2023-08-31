@@ -631,7 +631,7 @@ class DetailScreen extends StatelessWidget {
                                                 color: Color.fromARGB(
                                                     255, 87, 195, 90)),
                                           ),
-                                        if (stationInfo.occupancy_20 == 1)
+                                        if (stationInfo.occupancy_60 == 1)
                                           const TextSpan(
                                             text: '보통',
                                             style: TextStyle(
@@ -640,7 +640,7 @@ class DetailScreen extends StatelessWidget {
                                                 color: Color.fromARGB(
                                                     255, 243, 224, 56)),
                                           ),
-                                        if (stationInfo.occupancy_20 == 2)
+                                        if (stationInfo.occupancy_60 == 2)
                                           const TextSpan(
                                             text: '혼잡',
                                             style: TextStyle(

@@ -53,7 +53,7 @@ class _RootPageState extends State<RootPage> {
         pv = await TmapUiSdk().getPlatformVersion();
 
         AuthData authInfo = AuthData(
-            clientApiKey: "M9z0EpdWwK6BCr2ubprqy91f2CsjBEHLadeunvga",
+            clientApiKey: "XBE10gzf7t9jSCz95BbG99zr6AcVSnPd1RPPIA4U",
             userKey: "");
 
         var result = await TmapUISDKManager().initSDK(authInfo);
@@ -111,8 +111,14 @@ class _RootPageState extends State<RootPage> {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(
+            height: 10,
+          ),
           Text("Running on : $platformVersion"),
           Text("init status : $initStatus"),
+          const SizedBox(
+            height: 5,
+          ),
           TextButton(
             onPressed: clickPermission,
             child: const Text("위치 권한"),

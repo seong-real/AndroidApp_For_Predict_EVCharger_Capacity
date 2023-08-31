@@ -18,7 +18,7 @@ class _FindPageState extends State<FindPage> {
     super.initState();
   }
 
-  Future<List<StationInfo>> station = ApiService.getStationInfo();
+  Future<List<StationInfo>> station = ApiService.getStationInfoFromCSV();
 
   @override
   Widget build(BuildContext context) {
@@ -58,24 +58,59 @@ class _FindPageState extends State<FindPage> {
                         const SizedBox(
                           height: 5,
                         ),
-                        RichText(
-                          text: TextSpan(
-                            children: <TextSpan>[
-                              const TextSpan(
-                                text: '급속 ',
+                        if (station.occupancy0 == 0)
+                          const Row(
+                            children: [
+                              Icon(
+                                Icons.circle,
+                                color: Colors.green,
+                                size: 20,
+                              ),
+                              Text(
+                                '여유',
                                 style: TextStyle(
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color.fromARGB(255, 9, 171, 225)),
-                              ),
-                              TextSpan(
-                                text: '${station.fast} 대 가능',
-                                style: const TextStyle(
-                                    fontSize: 13,
-                                    color: Color.fromARGB(255, 9, 171, 225)),
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.green),
                               )
                             ],
                           ),
+                        if (station.occupancy0 == 1)
+                          const Row(
+                            children: [
+                              Icon(
+                                Icons.circle,
+                                color: Colors.yellow,
+                                size: 20,
+                              ),
+                              Text(
+                                '보통',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.yellow),
+                              )
+                            ],
+                          ),
+                        if (station.occupancy0 == 2)
+                          const Row(
+                            children: [
+                              Icon(
+                                Icons.circle,
+                                color: Colors.red,
+                                size: 20,
+                              ),
+                              Text(
+                                '혼잡',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.red),
+                              )
+                            ],
+                          ),
+                        const SizedBox(
+                          height: 5,
                         ),
                         Text(
                           station.address,

@@ -63,8 +63,8 @@ class PinTMap : AppCompatActivity() {
         while (reader.readLine().also { line = it } != null) {
             val parts = line!!.split(",")
             if (parts.size >= 2) {
-                val latitude = parts[1].toDouble()
-                val longitude = parts[0].toDouble()
+                val latitude = parts[0].toDouble()
+                val longitude = parts[1].toDouble()
                 addMarkerAtLocation(latitude, longitude)
             }
         }
@@ -114,6 +114,3 @@ class PinTMap : AppCompatActivity() {
     }
    
 }
-
-
-

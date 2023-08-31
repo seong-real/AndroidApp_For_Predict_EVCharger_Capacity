@@ -1,6 +1,11 @@
 class StationInfo {
   final String address, name;
-  final int occupancy_20, occupancy_40, occupancy_60, occupancy_120, fast;
+  final int occupancy_20,
+      occupancy_40,
+      occupancy_60,
+      occupancy_120,
+      fast,
+      occupancy0;
   final double distance;
   final int sid;
 
@@ -9,6 +14,7 @@ class StationInfo {
         name = json['station']['name'],
         sid = json['station']['sid'],
         fast = json['station']['fast'],
+        occupancy0 = json['occupancy0'] ?? 0,
         occupancy_20 = json['occupancy20'] ?? 0.0,
         occupancy_40 = json['occupancy40'] ?? 0.0,
         occupancy_60 = json['occupancy60'] ?? 0.0,
@@ -16,6 +22,7 @@ class StationInfo {
         distance = json['distance'] ?? 0.0;
 
   StationInfo({
+    required this.occupancy0,
     required this.fast,
     required this.address,
     required this.name,
